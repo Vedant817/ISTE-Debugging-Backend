@@ -1,11 +1,14 @@
 import axios from 'axios';
+import checkStatus from './result.controller.js';
 
-const handleCompile = () => {
-    setProcessing(true);
+const handleCompile = async () => {
+    //setProcessing(true);
     const formData = {
-        language_id: language.id,
+        source_code: 'I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbih2b2lkKSB7CiAgY2hhciBuYW1lWzEwXTsKICBzY2FuZigiJXMiLCBuYW1lKTsKICBwcmludGYoImhlbGxvLCAlc1xuIiwgbmFtZSk7CiAgcmV0dXJuIDA7Cn0=',
+        language_id: 52,
+        stdin: 'SnVkZ2Uw',
         //TODO encode source code in base64
-        source_code: btoa(code),
+        //!source_code: btoa(code),
     };
     const options = {
         method: "POST",
@@ -19,18 +22,22 @@ const handleCompile = () => {
         },
         data: formData,
     };
-    axios
-        .request(options)
-        .then(function (response) {
-            console.log("res.data", response.data);
-            const token = response.data.token;
-            checkStatus(token);
-        })
-        .catch((err) => {
-            let error = err.response ? err.response.data : err;
-            setProcessing(false);
-            console.log(error);
-        });
+    try {
+        await axios
+            .request(options)
+            .then(function (response) {
+                console.log("res.data", response.data);
+                const token = response.data.token;
+                //checkStatus(token);
+            })
+            .catch((err) => {
+                let error = err.response ? err.response.data : err;
+                setProcessing(false);
+                console.log(error);
+            });
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export default handleCompile;

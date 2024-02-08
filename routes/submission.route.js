@@ -1,8 +1,8 @@
 import { Router } from "express";
-import submit from "../controllers/submission.controller.js";
+import handleCompile from "../controllers/submission.controller.js";
 
 const router = Router();
 
-router.route('/submissions').post(submit);
+router.route('/submissions').post(handleCompile);
 
 export default router;

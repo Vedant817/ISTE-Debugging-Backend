@@ -32,3 +32,5 @@ const checkStatus = async (token) => {
         showErrorToast();
     }
 };
+
+export default checkStatus;
