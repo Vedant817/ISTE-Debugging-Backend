@@ -1,10 +1,16 @@
 import express from 'express';
 import cors from 'cors';
-import submitRoute from './routes/submission.route.js'
+import bodyParser from 'body-parser';
+import submitRoute from './routes/submission.route.js';
+import dotenv from 'dotenv';
 
 const app = express();
-app.use(express.json());
+dotenv.config({
+    path: './.env'
+})
+app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.urlencoded({extended: true}))
 
 const port = 3000
 
